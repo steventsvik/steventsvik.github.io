@@ -3,22 +3,114 @@
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- cycling hero word ---------- */
+/* auto-cycles; hover pauses; click/tap advances immediately */
 
 const WORDS = ["data", "markets", "startups", "strategy"];
 const cycleEl = document.getElementById("cycleWord");
 let wordIndex = 0;
+let cyclePaused = false;
+let swapping = false;
 
-if (cycleEl && !reducedMotion) {
-  setInterval(() => {
-    cycleEl.classList.add("is-out");
+function swapWord() {
+  if (swapping) return;
+  swapping = true;
+  cycleEl.classList.add("is-out");
+  setTimeout(() => {
+    wordIndex = (wordIndex + 1) % WORDS.length;
+    cycleEl.textContent = WORDS[wordIndex];
+    cycleEl.classList.remove("is-out");
+    cycleEl.classList.add("is-in");
     setTimeout(() => {
-      wordIndex = (wordIndex + 1) % WORDS.length;
-      cycleEl.textContent = WORDS[wordIndex];
-      cycleEl.classList.remove("is-out");
-      cycleEl.classList.add("is-in");
-      setTimeout(() => cycleEl.classList.remove("is-in"), 500);
-    }, 350);
-  }, 2600);
+      cycleEl.classList.remove("is-in");
+      swapping = false;
+    }, 500);
+  }, 350);
+}
+
+if (cycleEl) {
+  cycleEl.addEventListener("click", swapWord);
+  if (!reducedMotion) {
+    cycleEl.addEventListener("mouseenter", () => (cyclePaused = true));
+    cycleEl.addEventListener("mouseleave", () => (cyclePaused = false));
+    setInterval(() => {
+      if (!cyclePaused) swapWord();
+    }, 2600);
+  }
+}
+
+/* ---------- custom cursor follower ---------- */
+
+const cursorEl = document.getElementById("cursor");
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+if (cursorEl && finePointer && !reducedMotion) {
+  let targetX = -100, targetY = -100;
+  let x = targetX, y = targetY;
+  let cursorShown = false;
+
+  document.addEventListener("mousemove", (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    if (!cursorShown) {
+      x = targetX; y = targetY;
+      cursorEl.classList.add("is-on");
+      cursorShown = true;
+    }
+  });
+  document.addEventListener("mouseleave", () => {
+    cursorEl.classList.remove("is-on");
+    cursorShown = false;
+  });
+
+  (function follow() {
+    x += (targetX - x) * 0.18;
+    y += (targetY - y) * 0.18;
+    cursorEl.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    requestAnimationFrame(follow);
+  })();
+
+  // grow into a ring over anything interactive
+  const HOVERABLE = "a, button, .entry, .stat, .marquee-track span";
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest(HOVERABLE)) cursorEl.classList.add("is-hover");
+  });
+  document.addEventListener("mouseout", (e) => {
+    if (e.target.closest(HOVERABLE)) cursorEl.classList.remove("is-hover");
+  });
+}
+
+/* ---------- scrollspy: light up the current section's nav link ---------- */
+
+const spyLinks = document.querySelectorAll(".frame--nav a[data-spy]");
+const spySections = [...spyLinks].map((a) =>
+  document.getElementById(a.dataset.spy)
+).filter(Boolean);
+
+if (spySections.length) {
+  const spyObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          spyLinks.forEach((a) =>
+            a.classList.toggle("is-active", a.dataset.spy === entry.target.id)
+          );
+        }
+      });
+    },
+    { rootMargin: "-35% 0px -55% 0px" }
+  );
+  spySections.forEach((s) => spyObserver.observe(s));
+
+  // clear highlight back at the very top (hero)
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (window.scrollY < window.innerHeight * 0.4) {
+        spyLinks.forEach((a) => a.classList.remove("is-active"));
+      }
+    },
+    { passive: true }
+  );
 }
 
 /* ---------- scroll reveals ---------- */

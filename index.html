@@ -23,17 +23,26 @@
     <span></span><span></span><span></span><span></span>
   </div>
 
+  <!-- custom cursor follower -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
   <!-- ============ fixed frame ============ -->
-  <header class="frame frame--identity">
-    <p class="hand">Hey, I&rsquo;m</p>
-    <p class="identity-name">Steven <span>Tsvik</span></p>
-    <p class="status"><span class="status-dot" aria-hidden="true"></span> Open to opportunities &middot; NYC</p>
-  </header>
+  <a class="frame frame--identity" href="#top" aria-label="Steven Tsvik — back to top">
+    <span class="hand">Hey, I&rsquo;m</span>
+    <span class="identity-swap">
+      <span class="identity-name">Steven <span class="dim">Tsvik</span></span>
+      <span class="identity-name identity-name--alt" aria-hidden="true">Quant <span class="dim">&amp; Founder</span></span>
+    </span>
+    <span class="status-swap">
+      <span class="status"><span class="status-dot" aria-hidden="true"></span> Open to opportunities &middot; NYC</span>
+      <span class="status status--alt" aria-hidden="true">B.S. Statistics &rsquo;27 &middot; Baruch College</span>
+    </span>
+  </a>
 
   <nav class="frame frame--nav" aria-label="Sections">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#contact">Contact</a>
+    <a href="#about" data-spy="about"><span class="nav-inner"><span class="nav-t">About</span><span class="nav-t nav-t--hover" aria-hidden="true">About</span></span></a>
+    <a href="#experience" data-spy="experience"><span class="nav-inner"><span class="nav-t">Experience</span><span class="nav-t nav-t--hover" aria-hidden="true">Experience</span></span></a>
+    <a href="#contact" data-spy="contact"><span class="nav-inner"><span class="nav-t">Contact</span><span class="nav-t nav-t--hover" aria-hidden="true">Contact</span></span></a>
   </nav>
 
   <div class="frame frame--rail" aria-hidden="false">
@@ -62,7 +71,7 @@
       <p class="kicker reveal-load" style="--i:0">Statistics &amp; Quantitative Modeling &middot; Baruch College</p>
       <h1>
         <span class="line reveal-load" style="--i:1">I work</span>
-        <span class="line reveal-load" style="--i:2">with&nbsp;<span class="cycle-word" id="cycleWord">data</span></span>
+        <span class="line reveal-load" style="--i:2">with&nbsp;<button class="cycle-word" id="cycleWord" type="button" aria-label="Cycle to next word">data</button></span>
       </h1>
       <div class="hero-rule reveal-load" style="--i:3" aria-hidden="true"></div>
     </section>
