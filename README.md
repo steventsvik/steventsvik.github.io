@@ -11,7 +11,7 @@ Everything visible on the site lives in **`index.html`**. Open it in any editor 
 | The rotating words in the hero (DATA / MARKETS / ...) | `main.js`, the `WORDS` list at the top |
 | The intro paragraphs | `index.html`, the `about` section |
 | The stat numbers (GPA, followers, etc.) | `index.html`, the `stats` block — edit `data-count` and the caption |
-| Jobs / education timeline | `index.html`, the `history` section — copy an `<li class="entry">` block to add a new one |
+| Jobs / education timeline | `index.html`, the `history` section — copy an `<li class="entry">` block to add a new one (job title lives in the `<button>`, the click-to-expand text in `entry-note`; give the new `entry-detail` a unique `id` matching the button's `aria-controls`) |
 | Skills in the scrolling strip | `index.html`, the `skills` section (each skill appears twice — the list is doubled so the loop is seamless; edit both copies) |
 | Contact links | `index.html`, the `contact` section |
 | Colors | `style.css`, the `:root` block at the top (`--accent` is the green) |

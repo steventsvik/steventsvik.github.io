@@ -56,29 +56,6 @@ body::before {
   background: linear-gradient(180deg, var(--bg) 20%, transparent);
 }
 
-/* ---------- custom cursor follower ---------- */
-
-.cursor {
-  position: fixed; top: 0; left: 0; z-index: 60;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(43, 245, 155, 0.65);
-  pointer-events: none; opacity: 0;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s ease, height 0.25s ease, opacity 0.35s ease,
-              background 0.25s ease, border-color 0.25s ease;
-}
-.cursor.is-on { opacity: 1; }
-.cursor.is-hover {
-  width: 38px; height: 38px;
-  background: rgba(43, 245, 155, 0.06);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 22px rgba(43, 245, 155, 0.35);
-}
-@media (hover: none), (prefers-reduced-motion: reduce) {
-  .cursor { display: none; }
-}
-
 /* ---------- fixed frame ---------- */
 
 .frame { position: fixed; z-index: 30; }
@@ -352,52 +329,82 @@ section { padding-left: var(--content-x); padding-right: var(--frame-x); }
 
 .entry {
   display: grid; grid-template-columns: minmax(4.5rem, 8rem) 1fr;
-  gap: clamp(1rem, 4vw, 3.5rem);
-  padding: clamp(1.8rem, 4.5vh, 3rem) 0;
+  gap: 0 clamp(1rem, 4vw, 3.5rem);
+  padding: clamp(1.4rem, 3.2vh, 2.1rem) clamp(0.9rem, 2vw, 1.5rem);
   border-top: 1px solid var(--rule);
   position: relative;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 .timeline > .entry:last-child { border-bottom: 1px solid var(--rule); }
 
-/* soft accent wash sweeps in from the left on hover */
-.entry::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(43, 245, 155, 0.05), transparent 55%);
-  opacity: 0; transform: translateX(-1.5rem);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
-}
-.entry:hover::after { opacity: 1; transform: translateX(0); }
-
 .entry-year {
-  font-family: var(--font-mono); font-size: clamp(1rem, 2vw, 1.4rem);
-  color: var(--ink-dim); padding-top: 0.5rem;
-  transition: color 0.3s, text-shadow 0.3s;
-}
-.entry:hover .entry-year { color: var(--accent); text-shadow: 0 0 14px rgba(43, 245, 155, 0.4); }
-
-.entry h3 {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(1.9rem, 5.5vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em;
-  transition: color 0.3s, text-shadow 0.3s, transform 0.3s;
-}
-.entry:hover h3 {
-  color: var(--accent);
-  text-shadow: 0 0 34px rgba(43, 245, 155, 0.35);
-  transform: translateX(0.35rem);
-}
-.entry-org {
-  margin-top: 0.6rem; font-family: var(--font-mono); font-size: 0.75rem;
-  letter-spacing: 0.06em; color: var(--ink-dim);
-}
-.entry-note {
-  margin-top: 0.7rem; max-width: 56ch; color: var(--ink-dim); font-size: 0.95rem;
+  font-family: var(--font-mono); font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+  color: var(--ink-dim); padding-top: 0.35rem;
   transition: color 0.3s;
 }
-.entry:hover .entry-note { color: var(--ink); }
+
+.entry h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 2.3rem); line-height: 1.1; letter-spacing: -0.02em;
+  transition: color 0.3s, font-size 0.35s ease;
+}
+.entry-org {
+  margin-top: 0.45rem; font-family: var(--font-mono); font-size: 0.72rem;
+  letter-spacing: 0.06em; color: var(--ink-dim);
+}
+.entry-note { max-width: 52ch; color: var(--ink-dim); font-size: 0.92rem; }
+
+/* --- experience rows: compact, expand on click (reference: history rows) --- */
+
+.timeline--xp .entry { cursor: pointer; }
+.timeline--xp .entry:hover .entry-year,
+.timeline--xp .entry:hover h3 { color: var(--accent); }
+
+.timeline--xp .entry-body {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 0 clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+.entry-head { grid-column: 1; }
+.entry-detail { grid-column: 2; grid-row: 1; }
+
+.entry-title { display: block; }
+.entry-toggle {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  width: 100%; padding: 0; background: none; border: none; cursor: pointer;
+  font: inherit; color: inherit; letter-spacing: inherit; text-align: left;
+}
+.entry-toggle:focus-visible { outline: 2px dashed var(--accent); outline-offset: 6px; }
+
+.entry-plus {
+  font-family: var(--font-mono); font-weight: 400;
+  font-size: 1rem; color: var(--ink-faint);
+  transition: transform 0.35s ease, color 0.3s;
+}
+.timeline--xp .entry:hover .entry-plus { color: var(--accent); }
+.entry.is-open .entry-plus { transform: rotate(45deg); color: var(--accent); }
+
+/* collapsed: detail takes no height; open: it unfolds */
+.entry-detail { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+.entry-detail-inner { overflow: hidden; }
+.entry-note {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s;
+  padding-bottom: 0.2rem;
+}
+
+/* open state: row becomes a raised card, title condenses (like the reference invert) */
+.entry.is-open {
+  background: var(--bg-raise);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+.entry.is-open h3 { font-size: clamp(1.1rem, 1.9vw, 1.45rem); }
+.entry.is-open .entry-year { color: var(--accent); }
+.entry.is-open .entry-detail { grid-template-rows: 1fr; }
+.entry.is-open .entry-note { opacity: 1; transform: none; }
 
 .label--edu { margin-top: clamp(4rem, 10vh, 7rem); }
-.timeline--edu .entry h3 { font-size: clamp(1.4rem, 3.4vw, 2.6rem); }
+.timeline--edu .entry h3 { font-size: clamp(1.05rem, 2vw, 1.45rem); }
 
 /* ---------- skills marquee ---------- */
 
@@ -511,8 +518,11 @@ section { padding-left: var(--content-x); padding-right: var(--frame-x); }
   .frame--coords, .frame--rail { display: none; }
   .status { font-size: 0.6rem; }
   .hero { padding-bottom: 5.5rem; }
-  .entry { grid-template-columns: 1fr; gap: 0.4rem; }
+  .entry { grid-template-columns: 1fr; gap: 0.4rem; padding-inline: 0.8rem; }
   .entry-year { padding-top: 0; }
+  .timeline--xp .entry-body { grid-template-columns: 1fr; }
+  .entry-detail { grid-column: 1; grid-row: auto; }
+  .entry.is-open .entry-note { margin-top: 0.8rem; }
   .to-top { bottom: 2rem; }
   .contact-card { padding: 0.2rem 1.2rem 1.2rem; }
   .contact-value { font-size: 0.62rem; }
@@ -528,4 +538,5 @@ section { padding-left: var(--content-x); padding-right: var(--frame-x); }
   .marquee-track { animation: none; }
   .hero-rule::after, .status-dot, .frame--hint span { animation: none; }
   .orb--a, .orb--b { animation: none; }
+  .entry, .entry h3, .entry-detail, .entry-note, .entry-plus { transition: none; }
 }

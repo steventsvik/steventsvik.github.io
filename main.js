@@ -38,46 +38,24 @@ if (cycleEl) {
   }
 }
 
-/* ---------- custom cursor follower ---------- */
+/* ---------- experience accordion (compact rows, expand on click) ---------- */
 
-const cursorEl = document.getElementById("cursor");
-const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const xpEntries = document.querySelectorAll(".timeline--xp .entry");
 
-if (cursorEl && finePointer && !reducedMotion) {
-  let targetX = -100, targetY = -100;
-  let x = targetX, y = targetY;
-  let cursorShown = false;
-
-  document.addEventListener("mousemove", (e) => {
-    targetX = e.clientX;
-    targetY = e.clientY;
-    if (!cursorShown) {
-      x = targetX; y = targetY;
-      cursorEl.classList.add("is-on");
-      cursorShown = true;
+xpEntries.forEach((entry) => {
+  entry.addEventListener("click", () => {
+    const nowOpen = !entry.classList.contains("is-open");
+    // single-open: close the others first
+    xpEntries.forEach((other) => {
+      other.classList.remove("is-open");
+      other.querySelector(".entry-toggle").setAttribute("aria-expanded", "false");
+    });
+    if (nowOpen) {
+      entry.classList.add("is-open");
+      entry.querySelector(".entry-toggle").setAttribute("aria-expanded", "true");
     }
   });
-  document.addEventListener("mouseleave", () => {
-    cursorEl.classList.remove("is-on");
-    cursorShown = false;
-  });
-
-  (function follow() {
-    x += (targetX - x) * 0.18;
-    y += (targetY - y) * 0.18;
-    cursorEl.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-    requestAnimationFrame(follow);
-  })();
-
-  // grow into a ring over anything interactive
-  const HOVERABLE = "a, button, .entry, .stat, .marquee-track span";
-  document.addEventListener("mouseover", (e) => {
-    if (e.target.closest(HOVERABLE)) cursorEl.classList.add("is-hover");
-  });
-  document.addEventListener("mouseout", (e) => {
-    if (e.target.closest(HOVERABLE)) cursorEl.classList.remove("is-hover");
-  });
-}
+});
 
 /* ---------- scrollspy: light up the current section's nav link ---------- */
 
