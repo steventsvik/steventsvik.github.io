@@ -38,6 +38,47 @@ if (cycleEl) {
   }
 }
 
+/* ---------- custom cursor follower ---------- */
+
+const cursorEl = document.getElementById("cursor");
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+if (cursorEl && finePointer && !reducedMotion) {
+  let targetX = -100, targetY = -100;
+  let x = targetX, y = targetY;
+  let cursorShown = false;
+
+  document.addEventListener("mousemove", (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    if (!cursorShown) {
+      x = targetX; y = targetY;
+      cursorEl.classList.add("is-on");
+      cursorShown = true;
+    }
+  });
+  document.addEventListener("mouseleave", () => {
+    cursorEl.classList.remove("is-on");
+    cursorShown = false;
+  });
+
+  (function follow() {
+    x += (targetX - x) * 0.18;
+    y += (targetY - y) * 0.18;
+    cursorEl.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    requestAnimationFrame(follow);
+  })();
+
+  // grow into a ring over anything interactive, shrink back off it
+  const HOVERABLE = "a, button, .entry, .stat, .marquee-track span";
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest(HOVERABLE)) cursorEl.classList.add("is-hover");
+  });
+  document.addEventListener("mouseout", (e) => {
+    if (e.target.closest(HOVERABLE)) cursorEl.classList.remove("is-hover");
+  });
+}
+
 /* ---------- experience accordion (compact rows, expand on click) ---------- */
 
 const xpEntries = document.querySelectorAll(".timeline--xp .entry");
