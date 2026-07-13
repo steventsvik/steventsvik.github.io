@@ -94,8 +94,11 @@ body::before {
 }
 .hand {
   display: block;
-  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--ink-dim);
+  font-family: "Caveat", cursive; font-weight: 500;
+  font-size: 1.25rem; letter-spacing: 0.01em;
+  color: var(--ink-dim);
+  transform: rotate(-3deg); transform-origin: left bottom;
+  margin-bottom: -0.15rem;
 }
 
 /* name <-> role flip on hover (like the reference's logo swap) */
