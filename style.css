@@ -85,12 +85,6 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
 }
 
-.gridlines {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  display: flex; justify-content: space-evenly;
-}
-.gridlines span { width: 1px; background: var(--rule); }
-
 /* fade content out as it passes under the fixed header */
 body::before {
   content: ""; position: fixed; top: 0; left: 0; right: 0; height: 8rem;
@@ -642,13 +636,6 @@ section { padding-left: var(--content-x); padding-right: var(--frame-x); }
   position: relative;
 }
 
-.contact-title {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(4rem, 14vw, 12rem); line-height: 0.92; letter-spacing: -0.03em;
-  text-transform: uppercase; margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
-}
-.accent-dot { color: var(--accent); text-shadow: 0 0 40px var(--glow-hi); }
-
 .contact-card {
   background: var(--card-bg);
   border: 1px solid var(--card-rule);
@@ -711,7 +698,6 @@ section { padding-left: var(--content-x); padding-right: var(--frame-x); }
 
 @media (max-width: 760px) {
   :root { --content-x: 1.5rem; }
-  .gridlines span:nth-child(n + 3) { display: none; }
   .frame--identity { top: 1.1rem; }
   .identity-name { font-size: 1.1rem; }
   .frame--nav { top: 1.2rem; flex-direction: row; gap: 1rem; }
