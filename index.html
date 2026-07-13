@@ -14,6 +14,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t !== "dark" && t !== "light") {
+        t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
 </head>
 <body>
 
@@ -42,8 +51,14 @@
   <nav class="frame frame--nav" aria-label="Sections">
     <a href="#about" data-spy="about"><span class="nav-inner"><span class="nav-t">About</span><span class="nav-t nav-t--hover" aria-hidden="true">About</span></span></a>
     <a href="#experience" data-spy="experience"><span class="nav-inner"><span class="nav-t">Experience</span><span class="nav-t nav-t--hover" aria-hidden="true">Experience</span></span></a>
+    <a href="#work" data-spy="work"><span class="nav-inner"><span class="nav-t">Work</span><span class="nav-t nav-t--hover" aria-hidden="true">Work</span></span></a>
     <a href="#contact" data-spy="contact"><span class="nav-inner"><span class="nav-t">Contact</span><span class="nav-t nav-t--hover" aria-hidden="true">Contact</span></span></a>
   </nav>
+
+  <button class="frame frame--theme" id="themeToggle" type="button" aria-label="Switch between dark and light theme">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 14.2A8.8 8.8 0 0 1 9.8 3.4a8.8 8.8 0 1 0 10.8 10.8z"/></svg>
+  </button>
 
   <div class="frame frame--rail" aria-hidden="false">
     <a href="mailto:steventsvik@gmail.com" aria-label="Email Steven">
@@ -190,6 +205,11 @@
           </div>
         </li>
       </ol>
+
+      <a class="resume-btn reveal" href="TsvikSteven-Resume.pdf" download>
+        <span class="resume-btn-label">Resume &mdash; PDF for recruiters</span>
+        <span class="resume-btn-arrow" aria-hidden="true">&darr;</span>
+      </a>
     </section>
 
     <!-- ============ skills marquee ============ -->
@@ -198,6 +218,66 @@
         <div class="marquee-track">
           <span>Data Analysis</span><i>&#10022;</i><span>Market Research</span><i>&#10022;</i><span>Tableau</span><i>&#10022;</i><span>Excel</span><i>&#10022;</i><span>Python</span><i>&#10022;</i><span>Project Coordination</span><i>&#10022;</i><span>n8n Automation</span><i>&#10022;</i><span>Growth Strategy</span><i>&#10022;</i>
           <span>Data Analysis</span><i>&#10022;</i><span>Market Research</span><i>&#10022;</i><span>Tableau</span><i>&#10022;</i><span>Excel</span><i>&#10022;</i><span>Python</span><i>&#10022;</i><span>Project Coordination</span><i>&#10022;</i><span>n8n Automation</span><i>&#10022;</i><span>Growth Strategy</span><i>&#10022;</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ work mosaic ============ -->
+    <section class="work" id="work">
+      <p class="label reveal">Work</p>
+      <h2 class="section-title reveal">Ventures I&rsquo;ve founded &amp; run</h2>
+
+      <div class="mosaic-viewport">
+        <div class="mosaic" id="mosaic" aria-label="Selected ventures">
+          <div class="tile t-1"></div>
+          <div class="tile t-3"></div>
+          <div class="tile t-1"></div>
+          <div class="tile t-3"></div>
+          <div class="tile t-1"></div>
+
+          <div class="tile t-2"></div>
+          <div class="tile t-4 tile--project">
+            <div class="tile-inner">
+              <span class="tile-mono">P.</span>
+              <span class="tile-name">Prosper Collective</span>
+              <span class="tile-sub">growth &amp; advisory agency</span>
+            </div>
+          </div>
+          <div class="tile t-2"></div>
+          <div class="tile t-4">
+            <div class="tile-inner">
+              <svg class="tile-spark" viewBox="0 0 120 60" aria-hidden="true"><polyline points="4,50 24,38 40,44 58,24 76,32 96,12 116,18"/></svg>
+            </div>
+          </div>
+          <div class="tile t-2"></div>
+
+          <div class="tile t-3"></div>
+          <div class="tile t-1"></div>
+          <div class="tile t-3 tile--project">
+            <div class="tile-inner">
+              <span class="tile-mono">S.</span>
+              <span class="tile-name">Soros Corporation</span>
+              <span class="tile-sub">crypto-commerce marketplace</span>
+            </div>
+          </div>
+          <div class="tile t-1"></div>
+          <div class="tile t-3"></div>
+
+          <div class="tile t-4"></div>
+          <div class="tile t-2"></div>
+          <div class="tile t-4"></div>
+          <a class="tile t-2 tile--cta" href="#contact">
+            <div class="tile-inner">
+              <span class="tile-name">Let&rsquo;s build together &nearr;</span>
+            </div>
+          </a>
+          <div class="tile t-4"></div>
+
+          <div class="tile t-1"></div>
+          <div class="tile t-3"></div>
+          <div class="tile t-1"></div>
+          <div class="tile t-3"></div>
+          <div class="tile t-1"></div>
         </div>
       </div>
     </section>

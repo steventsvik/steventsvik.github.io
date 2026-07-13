@@ -14,7 +14,9 @@ Everything visible on the site lives in **`index.html`**. Open it in any editor 
 | Jobs / education timeline | `index.html`, the `history` section — copy an `<li class="entry">` block to add a new one (job title lives in the `<button>`, the click-to-expand text in `entry-note`; give the new `entry-detail` a unique `id` matching the button's `aria-controls`) |
 | Skills in the scrolling strip | `index.html`, the `skills` section (each skill appears twice — the list is doubled so the loop is seamless; edit both copies) |
 | Contact links | `index.html`, the `contact` section |
-| Colors | `style.css`, the `:root` block at the top (`--accent` is the green) |
+| Work mosaic tiles (projects) | `index.html`, the `work` section — each diamond is a `<div class="tile t-N">`; project tiles have `tile--project` with monogram/name/sub spans |
+| Colors / themes | `style.css`, the two blocks at the top: `:root` (warm dark) and `:root[data-theme="light"]` (warm light) |
+| Resume PDF | Replace `TsvikSteven-Resume.pdf` with a new export (keep the same filename and the download button keeps working) |
 
 ## Publishing changes
 

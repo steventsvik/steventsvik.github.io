@@ -193,6 +193,51 @@ if (reducedMotion) {
   statEls.forEach((el) => statObserver.observe(el));
 }
 
+/* ---------- theme toggle ---------- */
+
+const themeBtn = document.getElementById("themeToggle");
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("theme", next);
+  });
+}
+
+/* ---------- work mosaic: tiles close in as you scroll ---------- */
+
+const mosaic = document.getElementById("mosaic");
+if (mosaic && !reducedMotion) {
+  const tiles = [...mosaic.querySelectorAll(".tile")];
+  const COLS = 5;
+  const SPREAD = 260; // px each ring of tiles starts away from its slot
+
+  tiles.forEach((tile, i) => {
+    const r = Math.floor(i / COLS) - 2;
+    const c = (i % COLS) - 2;
+    tile.dataset.dx = c * SPREAD;
+    tile.dataset.dy = r * SPREAD;
+  });
+
+  let progress = 0;
+
+  function mosaicTick() {
+    const box = mosaic.parentElement.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // 0 → section top at viewport bottom; 1 → scrolled ~75% of a screen into it
+    const target = Math.min(1, Math.max(0, (vh - box.top) / (vh * 0.75)));
+    progress += (target - progress) * 0.09;
+
+    const f = 1 - progress;
+    tiles.forEach((tile) => {
+      tile.style.transform = `translate(${tile.dataset.dx * f}px, ${tile.dataset.dy * f}px)`;
+      tile.style.opacity = 0.1 + 0.9 * progress;
+    });
+    requestAnimationFrame(mosaicTick);
+  }
+  mosaicTick();
+}
+
 /* ---------- hide scroll hint after scrolling ---------- */
 
 window.addEventListener(
