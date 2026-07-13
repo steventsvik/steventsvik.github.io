@@ -238,6 +238,39 @@ if (mosaic && !reducedMotion) {
   mosaicTick();
 }
 
+/* ---------- project detail overlay ---------- */
+
+const overlay = document.getElementById("projectOverlay");
+if (overlay) {
+  const panels = overlay.querySelectorAll(".project-panel");
+  let lastTrigger = null;
+
+  function openProject(key, trigger) {
+    lastTrigger = trigger || null;
+    panels.forEach((p) => (p.hidden = p.dataset.panel !== key));
+    overlay.hidden = false;
+    document.body.classList.add("overlay-open");
+    const closeBtn = overlay.querySelector(".project-panel:not([hidden]) .project-close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeProject() {
+    overlay.hidden = true;
+    document.body.classList.remove("overlay-open");
+    if (lastTrigger) lastTrigger.focus();
+  }
+
+  document.querySelectorAll(".tile[data-project]").forEach((tile) => {
+    tile.addEventListener("click", () => openProject(tile.dataset.project, tile));
+  });
+  overlay.addEventListener("click", (e) => {
+    if (e.target.closest("[data-close]")) closeProject();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !overlay.hidden) closeProject();
+  });
+}
+
 /* ---------- hide scroll hint after scrolling ---------- */
 
 window.addEventListener(

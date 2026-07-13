@@ -594,6 +594,59 @@ section { padding-left: var(--content-x); padding-right: var(--frame-x); }
 .tile--cta .tile-name { color: var(--accent); }
 .tile--cta:hover .tile-name { text-shadow: 0 0 22px var(--glow-lo); }
 
+/* project tiles are <button>s — strip chrome, keep tile look */
+button.tile {
+  border: none; font: inherit; color: inherit; text-align: center;
+  cursor: pointer; padding: 0;
+}
+button.tile:focus-visible { outline: 2px dashed var(--accent); outline-offset: -6px; }
+
+/* ---------- project detail overlay (reference: tile click opens details) ---------- */
+
+.project-overlay { position: fixed; inset: 0; z-index: 55; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+.project-backdrop {
+  position: absolute; inset: 0;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.project-panel {
+  position: relative; max-width: 40rem; width: 100%;
+  background: var(--card-bg); color: var(--card-ink);
+  border: 1px solid var(--card-rule); border-radius: 18px;
+  padding: clamp(1.8rem, 5vw, 3rem);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), inset 3px 0 0 var(--accent);
+  animation: panel-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+@keyframes panel-in { from { opacity: 0; transform: translateY(26px) scale(0.97); } }
+
+.project-close {
+  position: absolute; top: 1.1rem; right: 1.1rem;
+  width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  background: none; border: 1px solid var(--card-rule);
+  color: var(--card-dim); font-size: 1.5rem; line-height: 1; cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, background 0.25s, transform 0.25s;
+}
+.project-close:hover {
+  color: var(--card-bg); background: var(--accent); border-color: var(--accent);
+  transform: rotate(90deg);
+}
+
+.project-kicker {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+}
+.project-title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem); letter-spacing: -0.02em; line-height: 1.1;
+}
+.project-mono { color: var(--accent); }
+.project-desc { margin-top: 1rem; color: var(--card-dim); font-size: 1.02rem; max-width: 46ch; }
+.project-points { margin: 1.4rem 0 0 1.1rem; color: var(--card-dim); font-size: 0.94rem; }
+.project-points li { margin-bottom: 0.55rem; }
+.project-points li::marker { color: var(--accent); }
+
+body.overlay-open { overflow: hidden; }
+
 /* decorative sparkline tile */
 .tile-spark { width: 70%; height: auto; opacity: 0.7; }
 .tile-spark polyline {
