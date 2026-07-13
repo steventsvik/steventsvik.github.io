@@ -238,36 +238,61 @@ if (mosaic && !reducedMotion) {
   mosaicTick();
 }
 
-/* ---------- project detail overlay ---------- */
+/* ---------- project case-study overlay ---------- */
 
 const overlay = document.getElementById("projectOverlay");
 if (overlay) {
-  const panels = overlay.querySelectorAll(".project-panel");
+  const PROJECTS = ["soros", "prosper"];
+  const cases = overlay.querySelectorAll(".case");
+  const idxEl = document.getElementById("caseIndex");
+  let current = 0;
   let lastTrigger = null;
 
-  function openProject(key, trigger) {
-    lastTrigger = trigger || null;
-    panels.forEach((p) => (p.hidden = p.dataset.panel !== key));
-    overlay.hidden = false;
-    document.body.classList.add("overlay-open");
-    const closeBtn = overlay.querySelector(".project-panel:not([hidden]) .project-close");
-    if (closeBtn) closeBtn.focus();
+  function showCase(i) {
+    current = (i + PROJECTS.length) % PROJECTS.length;
+    cases.forEach((c) => (c.hidden = c.dataset.panel !== PROJECTS[current]));
+    idxEl.textContent = String(current + 1).padStart(2, "0");
+    const media = overlay.querySelector(".case:not([hidden]) .case-media");
+    if (media) media.scrollTop = 0;
   }
 
-  function closeProject() {
+  function openCase(key, trigger) {
+    lastTrigger = trigger || null;
+    showCase(Math.max(0, PROJECTS.indexOf(key)));
+    overlay.hidden = false;
+    document.body.classList.add("overlay-open");
+    overlay.querySelector(".case-close").focus();
+  }
+
+  function closeCase() {
     overlay.hidden = true;
     document.body.classList.remove("overlay-open");
     if (lastTrigger) lastTrigger.focus();
   }
 
   document.querySelectorAll(".tile[data-project]").forEach((tile) => {
-    tile.addEventListener("click", () => openProject(tile.dataset.project, tile));
+    tile.addEventListener("click", () => openCase(tile.dataset.project, tile));
   });
-  overlay.addEventListener("click", (e) => {
-    if (e.target.closest("[data-close]")) closeProject();
+  overlay.querySelectorAll(".case-nav").forEach((btn) => {
+    btn.addEventListener("click", () => showCase(current + parseInt(btn.dataset.nav, 10)));
   });
+  overlay.querySelector(".case-close").addEventListener("click", closeCase);
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !overlay.hidden) closeProject();
+    if (overlay.hidden) return;
+    if (e.key === "Escape") closeCase();
+    if (e.key === "ArrowRight") showCase(current + 1);
+    if (e.key === "ArrowLeft") showCase(current - 1);
+  });
+
+  // thumbnail rail scrolls its media column to the matching panel
+  overlay.querySelectorAll(".case").forEach((c) => {
+    const figs = c.querySelectorAll(".case-fig");
+    c.querySelectorAll(".case-thumb").forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        const fig = figs[parseInt(thumb.dataset.fig, 10)];
+        if (fig) fig.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
   });
 }
 

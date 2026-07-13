@@ -277,35 +277,6 @@
       </div>
     </section>
 
-    <!-- ============ project detail overlays ============ -->
-    <div class="project-overlay" id="projectOverlay" hidden>
-      <div class="project-backdrop" data-close></div>
-
-      <article class="project-panel" data-panel="soros" role="dialog" aria-modal="true" aria-labelledby="soros-title" hidden>
-        <button class="project-close" type="button" data-close aria-label="Close project details">&times;</button>
-        <p class="project-kicker">2024 &mdash; Present &middot; Founder &amp; CEO</p>
-        <h3 class="project-title" id="soros-title"><span class="project-mono">S.</span> Soros Corporation</h3>
-        <p class="project-desc">A crypto-enabled e-commerce marketplace integrating digital-asset payments with retail vendors &mdash; currently in pre-launch buildout.</p>
-        <ul class="project-points">
-          <li>Leading a cross-functional team of 6 software engineers and designers through product and infrastructure buildout.</li>
-          <li>Owning operational planning, partnerships, and strategic development ahead of platform launch.</li>
-          <li>Designing the marketplace around seamless digital-asset checkout for everyday retail.</li>
-        </ul>
-      </article>
-
-      <article class="project-panel" data-panel="prosper" role="dialog" aria-modal="true" aria-labelledby="prosper-title" hidden>
-        <button class="project-close" type="button" data-close aria-label="Close project details">&times;</button>
-        <p class="project-kicker">2021 &mdash; 2023 &middot; Founder &amp; Director</p>
-        <h3 class="project-title" id="prosper-title"><span class="project-mono">P.</span> Prosper Collective</h3>
-        <p class="project-desc">A marketing &amp; advisory agency supporting early-stage blockchain and technology startups.</p>
-        <ul class="project-points">
-          <li>Grew client communities past 500K+ followers on Twitter/X through targeted campaign strategies.</li>
-          <li>Led client onboarding, project planning, and execution across multiple concurrent engagements.</li>
-          <li>Managed marketing strategy, deliverables, and stakeholder communication across remote teams.</li>
-        </ul>
-      </article>
-    </div>
-
     <!-- ============ contact ============ -->
     <section class="contact" id="contact">
       <p class="label reveal">Contact</p>
@@ -327,6 +298,107 @@
       <a class="to-top reveal" href="#top" aria-label="Back to top">&uarr;</a>
     </section>
   </main>
+
+    <!-- ============ project case studies (reference: full-screen work detail) ============ -->
+    <div class="case-overlay" id="projectOverlay" hidden>
+      <button class="case-close" type="button" data-close aria-label="Close project">&times;</button>
+      <button class="case-nav case-nav--next" type="button" data-nav="1" aria-label="Next project">&rsaquo;</button>
+      <button class="case-nav case-nav--prev" type="button" data-nav="-1" aria-label="Previous project">&lsaquo;</button>
+      <p class="case-counter" aria-hidden="true"><span id="caseIndex">01</span>&nbsp;/&nbsp;<span id="caseTotal">02</span></p>
+
+      <article class="case" data-panel="soros" role="dialog" aria-modal="true" aria-labelledby="soros-title" hidden>
+        <aside class="case-thumbs" aria-hidden="true">
+          <button class="case-thumb" type="button" data-fig="0"><span class="thumb-art thumb-art--s1">S.</span></button>
+          <button class="case-thumb" type="button" data-fig="1"><span class="thumb-art thumb-art--s2">&#9632;</span></button>
+        </aside>
+        <div class="case-media">
+          <figure class="case-fig">
+            <svg viewBox="0 0 900 640" role="img" aria-label="Soros Corporation brand panel">
+              <rect width="900" height="640" fill="#221810"/>
+              <polygon points="900,0 900,640 420,640" fill="#e8a34c" opacity="0.16"/>
+              <polygon points="900,240 900,640 620,640" fill="#e8a34c" opacity="0.3"/>
+              <text x="80" y="330" font-family="Syne, sans-serif" font-weight="800" font-size="150" fill="#f3ece1">S.</text>
+              <text x="82" y="400" font-family="JetBrains Mono, monospace" letter-spacing="10" font-size="26" fill="#a5968a">SOROS CORPORATION</text>
+              <text x="82" y="440" font-family="JetBrains Mono, monospace" letter-spacing="4" font-size="16" fill="#6b5d51">CRYPTO-COMMERCE &middot; NYC &middot; EST. 2024</text>
+            </svg>
+          </figure>
+          <figure class="case-fig">
+            <svg viewBox="0 0 900 520" role="img" aria-label="Checkout flow diagram">
+              <rect width="900" height="520" fill="#1e1712"/>
+              <g font-family="JetBrains Mono, monospace" font-size="20" letter-spacing="3">
+                <rect x="70" y="200" width="200" height="110" rx="14" fill="none" stroke="#6b5d51" stroke-width="2"/>
+                <text x="110" y="263" fill="#f3ece1">WALLET</text>
+                <rect x="350" y="200" width="200" height="110" rx="14" fill="#e8a34c"/>
+                <text x="378" y="263" fill="#221810">CHECKOUT</text>
+                <rect x="630" y="200" width="200" height="110" rx="14" fill="none" stroke="#6b5d51" stroke-width="2"/>
+                <text x="672" y="263" fill="#f3ece1">VENDOR</text>
+                <path d="M270 255h80m-14-9 14 9-14 9" stroke="#e8a34c" stroke-width="2.5" fill="none"/>
+                <path d="M550 255h80m-14-9 14 9-14 9" stroke="#e8a34c" stroke-width="2.5" fill="none"/>
+                <text x="70" y="120" fill="#a5968a" font-size="16" letter-spacing="6">DIGITAL-ASSET PAYMENTS, RETAIL-SIMPLE</text>
+              </g>
+            </svg>
+          </figure>
+        </div>
+        <div class="case-info">
+          <h3 class="case-title" id="soros-title">Soros Corporation</h3>
+          <p class="case-tag">Crypto-native checkout for everyday retail.</p>
+          <h4 class="case-label">Role</h4>
+          <p class="case-text">Founder &amp; CEO &middot; 2024 &mdash; Present</p>
+          <h4 class="case-label">Service</h4>
+          <p class="case-text">Product Strategy &middot; Team Leadership &middot; Operations &middot; Partnerships</p>
+          <h4 class="case-label">Description</h4>
+          <p class="case-text">Soros Corporation is a crypto-enabled e-commerce marketplace integrating digital-asset payments with retail vendors, currently in pre-launch buildout.</p>
+          <p class="case-text">I lead a cross-functional team of six software engineers and designers through the product and infrastructure buildout &mdash; owning operational planning, partnerships, and strategic development ahead of platform launch.</p>
+        </div>
+      </article>
+
+      <article class="case" data-panel="prosper" role="dialog" aria-modal="true" aria-labelledby="prosper-title" hidden>
+        <aside class="case-thumbs" aria-hidden="true">
+          <button class="case-thumb" type="button" data-fig="0"><span class="thumb-art thumb-art--p1">P.</span></button>
+          <button class="case-thumb" type="button" data-fig="1"><span class="thumb-art thumb-art--p2">&#9601;&#9603;&#9605;</span></button>
+        </aside>
+        <div class="case-media">
+          <figure class="case-fig">
+            <svg viewBox="0 0 900 640" role="img" aria-label="Prosper Collective brand panel">
+              <rect width="900" height="640" fill="#26180f"/>
+              <polygon points="0,0 480,0 0,640" fill="#d97f54" opacity="0.18"/>
+              <polygon points="0,0 260,0 0,380" fill="#d97f54" opacity="0.3"/>
+              <text x="80" y="330" font-family="Syne, sans-serif" font-weight="800" font-size="150" fill="#f3ece1">P.</text>
+              <text x="82" y="400" font-family="JetBrains Mono, monospace" letter-spacing="10" font-size="26" fill="#a5968a">PROSPER COLLECTIVE</text>
+              <text x="82" y="440" font-family="JetBrains Mono, monospace" letter-spacing="4" font-size="16" fill="#6b5d51">GROWTH &amp; ADVISORY &middot; 2021&ndash;2023</text>
+            </svg>
+          </figure>
+          <figure class="case-fig">
+            <svg viewBox="0 0 900 520" role="img" aria-label="Community growth chart">
+              <rect width="900" height="520" fill="#1e1712"/>
+              <g>
+                <rect x="100" y="360" width="90" height="60" fill="#4c3719"/>
+                <rect x="240" y="310" width="90" height="110" fill="#6b4a24"/>
+                <rect x="380" y="250" width="90" height="170" fill="#96662c"/>
+                <rect x="520" y="170" width="90" height="250" fill="#c08838"/>
+                <rect x="660" y="80" width="90" height="340" fill="#e8a34c"/>
+              </g>
+              <g font-family="JetBrains Mono, monospace" fill="#a5968a" font-size="16" letter-spacing="3">
+                <text x="100" y="120" font-size="16" letter-spacing="6">COMMUNITY GROWTH ACROSS CLIENT ACCOUNTS</text>
+                <text x="655" y="60" fill="#e8a34c" font-size="22">500K+</text>
+              </g>
+            </svg>
+          </figure>
+        </div>
+        <div class="case-info">
+          <h3 class="case-title" id="prosper-title">Prosper Collective</h3>
+          <p class="case-tag">Communities grown past half a million.</p>
+          <h4 class="case-label">Role</h4>
+          <p class="case-text">Founder &amp; Director &middot; 2021 &mdash; 2023</p>
+          <h4 class="case-label">Service</h4>
+          <p class="case-text">Growth Strategy &middot; Campaign Design &middot; Client Advisory &middot; Community Building</p>
+          <h4 class="case-label">Description</h4>
+          <p class="case-text">Prosper Collective was a marketing and advisory agency supporting early-stage blockchain and technology startups.</p>
+          <p class="case-text">We grew client communities to 500K+ followers across Twitter/X through targeted campaign strategies. I led client onboarding, project planning, and execution across multiple concurrent engagements, managing strategy, deliverables, and stakeholder communication in remote teams.</p>
+        </div>
+      </article>
+    </div>
+
 
   <script src="main.js"></script>
 </body>
