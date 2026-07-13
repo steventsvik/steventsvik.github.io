@@ -58,9 +58,14 @@ body::before {
 
 /* ---------- custom cursor follower ---------- */
 
+/* the circle replaces the native cursor entirely (only where it can run) */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
 .cursor {
   position: fixed; top: 0; left: 0; z-index: 60;
-  width: 8px; height: 8px; border-radius: 50%;
+  width: 10px; height: 10px; border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 12px rgba(43, 245, 155, 0.65);
   pointer-events: none; opacity: 0;

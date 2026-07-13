@@ -63,8 +63,9 @@ if (cursorEl && finePointer && !reducedMotion) {
   });
 
   (function follow() {
-    x += (targetX - x) * 0.18;
-    y += (targetY - y) * 0.18;
+    // tight tracking — the circle IS the cursor, so it can't lag far behind
+    x += (targetX - x) * 0.4;
+    y += (targetY - y) * 0.4;
     cursorEl.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
     requestAnimationFrame(follow);
   })();
